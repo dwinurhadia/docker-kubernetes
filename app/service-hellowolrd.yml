@@ -4,9 +4,9 @@ metadata:
   name: nodeexpress-service
 spec:
   selector:
-    app: nodeexpress
+    app: nodeexpress-pod
   ports:
-  - port: 3000
+  - port: 31001
     nodePort: 31001
     targetPort: nodejs-port
     protocol: TCP
