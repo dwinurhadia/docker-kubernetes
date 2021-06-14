@@ -1,13 +1,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nodeexpress
+  name: nodeexpress-pod
   labels:
-    app: nodeexpress
+    name: nodeexpress-pod
 spec:
   containers:
   - name: nodeexpress
     image: dwinurhadi17/express_app:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
     ports:
-    - containerPort: 3000
-  
+      - containerPort: 3000
