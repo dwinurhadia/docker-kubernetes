@@ -3,13 +3,14 @@ kind: Deployment
 metadata:
   name: nodeexpress-deployment
 spec:
+  replicas: 3
   selector:
     matchLabels:
-      app: nodeexpress
+      app: nodeexpress-deployment
   template:
     metadata:
       labels:
-        app: nodeexpress
+        app: nodeexpress-deployment
     spec:
       containers:
       - name: nodeexpress
@@ -20,3 +21,5 @@ spec:
             cpu: "50m"
         ports:
         - containerPort: 3000
+      nodeSelector:
+        hardware: high-spec
