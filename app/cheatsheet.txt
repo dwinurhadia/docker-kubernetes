@@ -1,0 +1,111 @@
+eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLWJ2c2ZzIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJiMTUwNzAwMS1jN2EyLTExZWItOTllMi0wMjQyYWMxMTAwM2UiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tdXNlciJ9.AhvRZ50S9APZge_SrcZrYXQwC8SM-CAtSEcPq6VtsCFxJ4ev9a8O3qi3FHbbnO4NM_DG3HkNAZA2HJz3CFaU38_ysVA5RRg_WQZgabAXnXWedw42TkruZHRHpNNlgSqUTWY-9sAGw5mypJTbfvk9SmLbDuwuAnTlGVElGftNJuTwnuQ1wRFk3LIguV03ywq0Gg4VKVoTJvGu55VFeEnxRrRyy1SpYKxnP8JSo4zQh2FMTJX2qU8R6gMZwOEsB8asV44hNQhV0Qnxt_lMrKH8PwQLloaOlhmzLo1cpIX_b9EROP42SADBUnjnXmp5dTYj5WLJAKkJwP9McPxq--HlzQ
+
+
+kubectl config get-contexts
+    CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPACE
+    *         kubernetes-admin@kubernetes   kubernetes   kubernetes-admin 
+
+
+kubectl get node
+kubectl get svc
+kubectl get node,svc,deployment
+    NAME                STATUS   ROLES    AGE   VERSION
+    node/controlplane   Ready    master   60m   v1.14.0
+    node/node01         Ready    <none>   58m   v1.14.0
+
+    NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    service/hello-minikube   NodePort    10.103.105.40   <none>        8080:31153/TCP   6m2s
+    service/kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP          59m
+
+    NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+    deployment.extensions/hello-minikube   1/1     1            1           13m
+    deployment.extensions/http             1/1     1            1           57m
+    controlplane $
+
+kubectl expose deployment hello-minikube --type=NodePort
+    service/hello-minikube exposed
+
+
+curl 10.103.105.40:8080
+curl 10.103.105.40:8080/test123
+    LIENT VALUES:
+    client_address=10.32.0.1
+    command=GET
+    real path=/test123
+    query=nil
+    request_version=1.1
+    request_uri=http://10.103.105.40:8080/test123
+
+    SERVER VALUES:
+    server_version=nginx: 1.10.0 - lua: 10001
+
+    HEADERS RECEIVED:
+    accept=*/*
+    host=10.103.105.40:8080
+    user-agent=curl/7.47.0
+    BODY:
+
+
+kubectl get svc
+    NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    hello-minikube   NodePort    10.103.105.40   <none>        8080:31153/TCP   4m21s
+    kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP          58m
+    controlplane $ 
+
+
+kops --> tools for maintenance cluster in AWS
+kubeadm --> alternative way for cluster, bisa di local cluster atau di digital ocean
+
+
+create aws account
+create IAM and add policy
+create bucket on S3 
+
+cloudping.info --> tools to check HTTP ping from your server
+
+
+kubeadm join 10.55.254.123:6443 --token xjisoh.d4od1dd8jc7jln4w \
+        --discovery-token-ca-cert-hash sha256:3d05ac26466b4c144e9bb551a22b7f0e26333da2a1e622bc44684e6a32ea611f 
+
+
+kubeadm join 10.55.254.123:6443 --token ty0tfn.3c5ewm6kazydv84z \
+        --discovery-token-ca-cert-hash sha256:6be59567f601bef9f39270335abf5b5a33c52975463cd09c84f326054c272a99 
+
+kubectl get pods -n kube-system -o wide
+kubectl get pods -n kube-system -o wide
+
+
+
+
+kubectl apply -f nginx/nginx-deployment.yaml 
+kubectl get deployments
+kubectl get rs
+
+kubectl get pods --show-labels
+
+kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
+
+kubectl port-forward nodehelloworld 8081:3000
+
+docker image ls | grep dwi
+kubectl expose pod nodehelloworld --type=NodePort --name=helloworld-service
+
+kubectl exec nodehellowolrd -- ls /app
+kubectl exec nodehellowolrd -- touch /app/tes.txt
+
+kubectl describe nodehellowolrd
+kubectl describe service nodehellowolrd
+
+kubectl attach nodehellowolrd -i
+kubectl exec -it nodehellowolrd -- bash 
+kubectl logs nodehellowolrd
+
+kubectl delete pod nodeexpress
+kubectl get pod
+kubectl get rc
+kubectl scale --replicas=10 rc/nodeexpress
+
+
+kubectl get nodes --show-labels 
+kubectl label nodes node1.kube hardware=high-spec
+kubectl get deployments.apps 
