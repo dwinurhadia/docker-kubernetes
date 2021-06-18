@@ -10,14 +10,9 @@ spec:
     image: dwinurhadi17/express_app:latest
     resources:
       limits:
-        memory: "128Mi"
-        cpu: "500m"
+        memory: "64Mi"
+        cpu: "50m"
     ports:
       - name: nodejs-port
         containerPort: 3000
-    livenessProbe:
-      httpGet:
-        path: /
-        port: 3000
-      initialDelaySeconds: 15
-      timeoutSeconds: 30
+    

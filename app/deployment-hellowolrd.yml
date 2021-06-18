@@ -6,20 +6,32 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nodeexpress-deployment
+      app: nodeexpress-pod
   template:
     metadata:
       labels:
-        app: nodeexpress-deployment
+        app: nodeexpress-pod
     spec:
       containers:
       - name: nodeexpress
         image: dwinurhadi17/express_app:latest
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "50m"
+            memory: "54Mi"
+            cpu: "25m"
         ports:
-        - containerPort: 3000
-      nodeSelector:
-        hardware: high-spec
+        - name: nodejs-port
+          containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: nodejs-port
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /
+            port: nodejs-port
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
+        
