@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: nodeexpress-pod
   labels:
-    name: nodeexpress-pod
+    app: nodeexpress-pod
 spec:
   containers:
   - name: nodeexpress
