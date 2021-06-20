@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress-deployment
+  template:
+    metadata:
+      labels:
+        app: wordpress-deployment
+    spec:
+      containers:
+      - name: wordpress-deployment
+        image: wordpress
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: 100m
+        ports:
+          - name: http-port
+            containerPort: 80
+        env:
+          - name: WORDPRESS_DB_PASSWORD
+            value: hello@!!
+            # valueFrom:
+            #   secretKeyRef:
+            #     name:  wordpress-secrets
+            #     key: db-password
+          - name: WORDPRESS_DB_HOST
+            value: mysql
+          - name: WORDPRESS_DB_USER
+            value: root
+      - name:  mysql
+        image:  mysql:5.7
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: 100m
+        ports:
+        - name: mysql-port
+          containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name:  wordpress-secrets
+                key: db-password
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: wordpress-persistence-storage
+      volumes:
+        - name: wordpress-persistence-storage
+          persistentVolumeClaim:
+            claimName: wordpress-volume-claim
+        

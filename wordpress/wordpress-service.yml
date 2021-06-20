@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  selector:
+    app: wordpress-deployment
+  ports:
+  - port: 31002
+    nodePort: 31002
+    targetPort: http-port
+  type: NodePort
+    
