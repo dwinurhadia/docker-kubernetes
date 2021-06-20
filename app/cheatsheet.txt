@@ -109,3 +109,5 @@ kubectl scale --replicas=10 rc/nodeexpress
 kubectl get nodes --show-labels 
 kubectl label nodes node1.kube hardware=high-spec
 kubectl get deployments.apps 
+
+kubectl get pod -o wide
