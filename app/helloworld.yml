@@ -26,5 +26,14 @@ spec:
           secretKeyRef:
             name:  db-secret
             key: password
+    volumeMounts:
+      - name:  credVolume
+        mountPath:  /etc/creds
+        readOnly: true
+    volumes:
+      - name:  credVolume
+        secret:
+          secretName: db-secret
+    
           
     
