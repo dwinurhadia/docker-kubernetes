@@ -111,3 +111,6 @@ kubectl label nodes node1.kube hardware=high-spec
 kubectl get deployments.apps 
 
 kubectl get pod -o wide
+
+kubectl create secret generic db-user-pass --from-file=username.txt --from-file=password.txt 
+kubectl get secrets
