@@ -10,8 +10,8 @@ spec:
     image: dwinurhadi17/express_app:latest
     resources:
       limits:
-        memory: "64Mi"
-        cpu: "50m"
+        memory:  "128M"
+        cpu: "1"
     ports:
       - name: nodejs-port
         containerPort: 3000
@@ -27,13 +27,12 @@ spec:
             name:  db-secret
             key: password
     volumeMounts:
-      - name:  credVolume
+      - name:  credvolume
         mountPath:  /etc/creds
         readOnly: true
-    volumes:
-      - name:  credVolume
-        secret:
-          secretName: db-secret
+  volumes:
+    - name:  credvolume
+      secret:
+        secretName: db-secret
     
-          
-    
+        
