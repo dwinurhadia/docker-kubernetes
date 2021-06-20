@@ -15,4 +15,16 @@ spec:
     ports:
       - name: nodejs-port
         containerPort: 3000
+    env:
+      - name: SECRET_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name:  db-secret
+            key: username
+      - name: SECRECT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name:  db-secret
+            key: password
+          
     
