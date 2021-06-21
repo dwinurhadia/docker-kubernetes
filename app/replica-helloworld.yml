@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: nodeexpress
+  name: nodeexpress-replication
 spec:
   replicas: 2
   selector:
-    app: nodeexpress
+    app: nodeexpress-pod
   template:
     metadata:
       labels:
-        app: nodeexpress
+        app: nodeexpress-pod
     spec:
       containers:
       - name: nodeexpress
