@@ -114,3 +114,7 @@ kubectl get pod -o wide
 
 kubectl create secret generic db-user-pass --from-file=username.txt --from-file=password.txt 
 kubectl get secrets
+echo 'root' | base64
+echo 'password' | base64
+
+kubectl exec nodeexpress-pod -it -- /bin/bash
