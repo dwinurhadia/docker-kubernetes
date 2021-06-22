@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodeexpress-database
+  labels:
+    name: nodeexpress-database
+spec:
+  containers:
+  - name: nodeexpress-database
+    image: mysql:5.6
+    resources:
+      limits:
+        memory: "1024Mi"
+        cpu: "1000m"
+    ports:
+      - name: mysql-port
+        containerPort: 3306  
+    env:
+      - name: MYSQL_USER
+        valueFrom:
+          secretKeyRef:
+            name: nodeexpress-secrets
+            key: username
+      - name: MYSQL_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: nodeexpress-secrets
+            key: password
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: nodeexpress-secrets
+            key: rootPassword
+      - name: MYSQL_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: nodeexpress-secrets
+            key: database
+  restartPolicy: Always
